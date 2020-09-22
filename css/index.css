@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+.poppins-font-family {
+  font-family: 'Poppins', sans-serif;
+}
+
+.custom-extra-margin {
+  margin: 15rem 0;
+}
+
+.custom-small-font {
+  font-size: .9rem;
+}
