@@ -1,2 +1,2 @@
-# QuieroVinilos
-## An e-commerce project developed to the shop Quiero Vinilos
+# Vinyls Shop
+## An e-commerce project 
