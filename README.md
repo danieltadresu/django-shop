@@ -1,2 +1,2 @@
-# Vinyls Shop
+# Vinylsmind
 ## An e-commerce project
