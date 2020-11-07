@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block content %}
+  {% for prods in products %}
+    <p> {{ prods.title }} </p>
+    <p> {{ prods.price | intcomma }} </p>
+    <p> {{ prods.description }} </p>
+    <p> {{ prods.category }} </p>
+    <img src="{{ prods.image.url }}" alt="">
+  {% endfor %}
+{% endblock %}
