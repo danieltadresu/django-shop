@@ -1,11 +1,51 @@
 {% extends 'base.html' %}
-{% load humanize %}
+
 {% block content %}
-  {% for prods in products %}
-    <p> {{ prods.title }} </p>
-    <p> {{ prods.price | intcomma }} </p>
-    <p> {{ prods.description }} </p>
-    <p> {{ prods.category }} </p>
-    <img src="{{ prods.image.url }}" alt="">
-  {% endfor %}
+
+  <div class="main" id="main">
+    <div class="row mt-5">
+      <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12 col-12 ">
+        <div class="card"
+             style="background-image: url('https://cdn.shopify.com/s/files/1/0287/4323/7725/files/headphones-2588235_1920_1350x897.jpg?v=1594960019');
+             height: 350px;">
+          <div class="container-fluid">
+
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12">
+        <div class="card"
+            style="background-image: url('https://cdn.shopify.com/s/files/1/0287/4323/7725/files/photo-1542395118-9d95347995bc_898x674.jpg?v=1604682051');
+            height: 350px;">
+          <div class="container-fluid">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="container text-center">
+        <h4 class="text-center">Featured New Releases</h4>
+      </div>
+      <div class="">
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+
+  $(document).ready(function(){
+    setTimeout(() => {
+      $("#main").fadeIn(3000);
+      console.log('hola');
+    }, 800);
+
+  });
+
+  </script>
+
+
 {% endblock %}

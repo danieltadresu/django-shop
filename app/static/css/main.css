@@ -5,3 +5,11 @@ body {
 .nav-icon {
   font-size: 1.2rem;
 }
+
+.wrapper {
+  display: block;
+}
+
+.main {
+  display: none;
+}
