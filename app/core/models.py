@@ -37,10 +37,11 @@ class Client(models.Model):
         return self.rut
 
 class Order(models.Model):
-    orderId     = models.IntegerField(primary_key=True)
-    product     = models.ForeignKey(Product, on_delete=models.CASCADE)
-    client      = models.ForeignKey(Client, on_delete=models.CASCADE)
-    quantity    = models.IntegerField()
+    #orderId      = models.IntegerField(primary_key=True)
+    orderId      = models.AutoField(primary_key=True)
+    product      = models.ForeignKey(Product, on_delete=models.CASCADE)
+    #client      = models.ForeignKey(Client, on_delete=models.CASCADE)
+    #total_price  = models.IntegerField(null=True)
 
     def __str__(self):
-        return self.orderId
+        return str(self.orderId)

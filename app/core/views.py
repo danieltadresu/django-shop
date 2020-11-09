@@ -1,8 +1,9 @@
 from django.shortcuts import render
 
-from core.models import Product
+from core.models import Product, Order
 from core.forms import CustomUserCreationForm
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required, permission_required
 # Create your views here.
 
 import stripe
@@ -13,9 +14,9 @@ def getIndex(request):
     data = {
         'products': fetchAllProducts
     }
-
     return render(request, 'index.html', data)
 
+@permission_required('core.view_product')
 def getCheckout(request, id):
     product = Product.objects.get(productId=id)
     print('My product -> ', product.price )
@@ -23,28 +24,31 @@ def getCheckout(request, id):
         payment_method_types=['card'],
         line_items=[
             {
-                'price_data': {
-                    'currency': 'clp',
-                        'unit_amount': product.price,
-                        'product_data': {
-                            'name': product.title,
-                        },
-                    },
-                    'quantity': 1,
-                },
+              'price_data': {
+                'currency': 'clp',
+                'unit_amount': product.price,
+                'product_data': {
+                  'name': product.title,
+                 },
+               },
+                 'quantity': 1,
+             },
             ],
             mode='payment',
-            success_url='http://localhost:8001/success/',
-            cancel_url='http://localhost:8001',
+            success_url='http://localhost:8000/success/' + str(id),
+            cancel_url='http://localhost:8000',
         )
-
     return render(request, 'products/checkout-products.html', {'id': checkout_session.id})
 
-def getSuccessPay(request):
-    print('hola!')
+def getSuccessPay(request, id):
+    fetchProduct = Product.objects.get(productId=id)
+    Order.objects.create(
+        product = fetchProduct
+    )
     return render(request, 'index.html')
 
 def registro(request):
+
     data = {
         'form': CustomUserCreationForm
     }

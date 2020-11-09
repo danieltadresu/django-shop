@@ -10,6 +10,6 @@ from core.views import (
 urlpatterns = [
     path('', getIndex, name='getIndex'),
     path('checkout/product/<int:id>', getCheckout, name='checkout'),
-    path('success/', getSuccessPay, name="success"),
+    path('success/<int:id>', getSuccessPay, name="success"),
     path('registro/', registro, name='registro'),
 ]
