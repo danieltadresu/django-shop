@@ -12,9 +12,9 @@
 
     <div class="wrapper" id="wrapper">
       <!-- Nav -->
-      <nav class="navbar navbar-expand-sm navbar-dark bg-dark border-bottom">
+      <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container">
-          <a href="#" class="navbar-brand">Vinylsmind</a>
+          <a href="/" class="navbar-brand">Vinylsmind</a>
           <button class="navbar-toggler" data-toggle="collapse" data-target="#nav">
             <span class="navbar-toggler-icon"> </span>
           </button>
@@ -25,6 +25,14 @@
                   Catalogo
                 </a>
               </li>
+              {% if perms.core.add_product %}
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  Admin Products
+                </a>
+              </li>
+              {% endif %}
+
               {% if user.is_authenticated %}
               <li class="nav-item">
                 <a href="{% url 'logout' %}" class="nav-link">
@@ -61,13 +69,12 @@
         {% endblock %}
       </div>
       <!-- -->
+
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    
 
   </body>
 </html>

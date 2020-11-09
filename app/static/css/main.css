@@ -13,3 +13,7 @@ body {
 .main {
   display: none;
 }
+
+.small-font {
+  font-size: .8rem;
+}
