@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
       <button id="order-btn" class="btn btn-success m-5">ORDER</button>
       <script src="https://js.stripe.com/v3/"></script>
       <script>
@@ -13,5 +12,4 @@
           });
         })
       </script>
-</div>
 {% endblock %}

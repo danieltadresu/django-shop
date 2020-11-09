@@ -1,10 +1,25 @@
 from django.shortcuts import render
 
-from core.models import Product, Order
-from core.forms import CustomUserCreationForm
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required, permission_required
-# Create your views here.
+from core.models import (
+    Product,
+    Order
+)
+
+from core.forms import (
+    CustomUserCreationForm
+)
+
+from django.contrib.auth import (
+    authenticate,
+    login
+)
+
+from django.contrib.auth.decorators import (
+    login_required,
+    permission_required
+)
+
+from django.contrib.auth.models import Group
 
 import stripe
 stripe.api_key = 'sk_test_51HQlYBKVWRemJMNbYdPyEEGInMoFLN9MwF1UA0m6rxk8o97VVB4jS5B4LXBjNN8XGeVXWiBjcNTT1NqIin9I1HJj00LtxiIU4C'
@@ -16,10 +31,16 @@ def getIndex(request):
     }
     return render(request, 'index.html', data)
 
+def getAddProduct(request):
+    data = {
+        'form': ProductForm()
+    }
+    return render(request, 'products/add-product.html', data)
+
+
 @permission_required('core.view_product')
 def getCheckout(request, id):
     product = Product.objects.get(productId=id)
-    print('My product -> ', product.price )
     checkout_session = stripe.checkout.Session.create(
         payment_method_types=['card'],
         line_items=[
@@ -43,22 +64,24 @@ def getCheckout(request, id):
 def getSuccessPay(request, id):
     fetchProduct = Product.objects.get(productId=id)
     Order.objects.create(
-        product = fetchProduct
+        product = fetchProduct,
+        total_price = fetchProduct.price
     )
     return render(request, 'index.html')
 
 def registro(request):
-
     data = {
         'form': CustomUserCreationForm
     }
-
     if request.method == 'POST':
         formulario = CustomUserCreationForm(data=request.POST)
         if formulario.is_valid():
             formulario.save()
             user = authenticate(username=formulario.cleaned_data['username'], password=formulario.cleaned_data['password1'])
+            user_group = Group.objects.get(name='Clients')
+            user.groups.add(user_group)
             login(request, user)
             return render(request, 'index.html', data)
         data['form'] = formulario
-    return render(request, 'registration/registro.html', data)
+    #return render(request, 'registration/registro.html', data)
+    return render(request, 'index.html', data)
