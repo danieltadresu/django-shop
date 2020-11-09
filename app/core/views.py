@@ -32,11 +32,7 @@ def getIndex(request):
     return render(request, 'index.html', data)
 
 def getAddProduct(request):
-    data = {
-        'form': ProductForm()
-    }
-    return render(request, 'products/add-product.html', data)
-
+    return render(request, 'products/add-product.html')
 
 @permission_required('core.view_product')
 def getCheckout(request, id):
@@ -69,7 +65,7 @@ def getSuccessPay(request, id):
     )
     return render(request, 'index.html')
 
-def registro(request):
+def getSignup(request):
     data = {
         'form': CustomUserCreationForm
     }
@@ -83,5 +79,4 @@ def registro(request):
             login(request, user)
             return render(request, 'index.html', data)
         data['form'] = formulario
-    #return render(request, 'registration/registro.html', data)
-    return render(request, 'index.html', data)
+    return render(request, 'registration/registro.html', data)
