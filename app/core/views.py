@@ -55,7 +55,7 @@ def getCheckout(request, id):
             success_url='http://localhost:8000/success/' + str(id),
             cancel_url='http://localhost:8000',
         )
-    return render(request, 'products/checkout-products.html', {'id': checkout_session.id})
+    return render(request, 'shop/checkout.html', {'id': checkout_session.id})
 
 def getSuccessPay(request, id):
     fetchProduct = Product.objects.get(productId=id)
