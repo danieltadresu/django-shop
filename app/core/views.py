@@ -11,7 +11,8 @@ from core.forms import (
 
 from django.contrib.auth import (
     authenticate,
-    login
+    login,
+    logout
 )
 
 from django.contrib.auth.decorators import (
@@ -30,6 +31,27 @@ def getIndex(request):
         'products': fetchAllProducts
     }
     return render(request, 'index.html', data)
+
+def getAuthLogIn(request):
+    if not request.user.is_authenticated:
+        return render(request, 'auth/login.html')
+    return render(request, 'index.html')
+
+
+def postAuthLogIn(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+    else:
+        data = {
+            'check' : False
+        }
+        return render(request, 'auth/login.html', data)
+    return render(request, 'index.html')
+
+##
 
 def getAddProduct(request):
     return render(request, 'products/add-product.html')

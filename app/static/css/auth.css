@@ -1,22 +1,5 @@
-
 .default-font {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.nav-icon {
-  font-size: 1.2rem;
-}
-
-.wrapper {
-  display: block;
-}
-
-.main {
-  display: none;
-}
-
-.small-font {
-  font-size: .8rem;
 }

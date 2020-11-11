@@ -14,20 +14,20 @@
       <!-- Nav -->
       <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container">
-          <a href="/" class="navbar-brand">Vinylsmind</a>
+          <a href="/" class="navbar-brand default-font">Vinylsmind</a>
           <button class="navbar-toggler" data-toggle="collapse" data-target="#nav">
             <span class="navbar-toggler-icon"> </span>
           </button>
           <div class="collapse navbar-collapse" id="nav">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="#" class="nav-link default-font">
                   Catalogo
                 </a>
               </li>
               {% if perms.core.add_product %}
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="#" class="nav-link default-font">
                   Admin Products
                 </a>
               </li>
@@ -35,23 +35,23 @@
 
               {% if user.is_authenticated %}
               <li class="nav-item">
-                <a href="{% url 'logout' %}" class="nav-link">
+                <a href="{% url 'logout' %}" class="nav-link default-font">
                   Logout
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="#" class="nav-link default-font">
                   {{ user.username }}
                 </a>
               </li>
               {% else %}
               <li class="nav-item">
-                <a href="{% url 'login' %}" class="nav-link">
+                <a href="{% url 'login' %}" class="nav-link default-font">
                    Log In
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'registro' %}" class="nav-link">
+                <a href="{% url 'registro' %}" class="nav-link default-font">
                   Sign In
                 </a>
               </li>
