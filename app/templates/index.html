@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div>
+
+    <section id="main" class="main">
+        <div class="container">
+          <div class="row mt-5">
+            <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12 col-12 mt-2 mb-2">
+              <div class="card"
+                   style="background-image: url('https://cdn.shopify.com/s/files/1/0287/4323/7725/files/headphones-2588235_1920_1350x897.jpg?v=1594960019');
+                   height: 350px;">
+                <div class="container-fluid">
+
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12 mt-2 mb-2">
+              <div class="card"
+                  style="background-image: url('https://cdn.shopify.com/s/files/1/0287/4323/7725/files/photo-1542395118-9d95347995bc_898x674.jpg?v=1604682051');
+                  height: 350px;">
+                <div class="container-fluid">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+
+    <section id="new-releases" class="main">
+      <div class="container">
+        <div class="row mt-5">
+          <div class="container text-center">
+            <h4 class="text-center default-font">Featured New Releases</h4>
+          </div>
+        </div>
+        <div class="row">
+          {% for prods in products %}
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 mt-4">
+              <div class="card">
+                <img class="card-img-top" src="{{ prods.image.url }}" alt="Card image" style="width:100%; max-height: 150px;">
+                <div class="card-body">
+                  <h5 class="card-title default-font">{{ prods.title }}</h5>
+                  <p class="card-text default-font" style="font-size: .8rem;"> {{ prods.band}} </p>
+                  <a href="/checkout/product/{{prods.productId}}" class="btn btn-outline-dark default-font" style="font-size: .8rem;">PAY <i class="fas fa-shopping-cart"></i></a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <section id="search" class="main" style="margin: 8rem 0;">
+      <div class="row mt-5 mb-5 justify-content-center">
+        <button class="btn btn-outline-success pt-2 pb-2 pr-4 pl-4 font-weight-bold default-font" style="font-size: .8rem;">SEE MORE <i class="fas fa-search"></i></button>
+      </div>
+    </section>
+
+    <section id="shop-by-genre" class="main">
+      <div class="text-center">
+        <h4 class="default-font">Shop by Genre</h4>
+      </div>
+      <div class="container mt-4 mb-4">
+            <div class="row">
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-2 mb-2">
+                <div class="container-fluid"
+                     style="background-image: url('https://cdn.shopify.com/s/files/1/0287/4323/7725/files/IMG_6130_copy_1000x667.jpg?v=1582718763');
+                     height: 300px;">
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-2 mb-2">
+                <div class="container-fluid"
+                      style="background-image: url('https://cdn.shopify.com/s/files/1/0287/4323/7725/files/IMG_6077_copy_1000x667.jpg?v=1582718802');
+                      height: 300px;">
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-2 mb-2">
+                <div class="container-fluid"
+                     style="background-image: url('https://cdn.shopify.com/s/files/1/0287/4323/7725/files/IMG_6146_copy_541x361.jpg?v=1582718837'); height: 300px;">
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-2 mb-2">
+                <div class="container-fluid"
+                     style="background-image: url('https://cdn.shopify.com/s/files/1/0287/4323/7725/files/IMG_6116_copy_540x361.jpg?v=1582718871'); height: 300px;">
+                </div>
+              </div>
+            </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+  $(document).ready(function(){
+    setTimeout(() => {
+      $("#main").fadeIn(3000);
+    }, 300);
+
+    setTimeout(() => {
+      $("#new-releases").fadeIn(3000);
+    }, 500);
+
+    setTimeout(() => {
+      $("#search").fadeIn(3000);
+    }, 1000);
+
+    setTimeout(() => {
+      $("#shop-by-genre").fadeIn(3000);
+    }, 1400);
+  });
+  </script>
+{% endblock %}
