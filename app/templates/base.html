@@ -35,23 +35,23 @@
 
               {% if user.is_authenticated %}
               <li class="nav-item">
-                <a href="{% url 'logout' %}" class="nav-link default-font">
+                <a href="/" class="nav-link default-font">
                   Logout
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link default-font">
+                <a href="/" class="nav-link default-font">
                   {{ user.username }}
                 </a>
               </li>
               {% else %}
               <li class="nav-item">
-                <a href="{% url 'login' %}" class="nav-link default-font">
+                <a href="/login" class="nav-link default-font">
                    Log In
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'registro' %}" class="nav-link default-font">
+                <a href="/" class="nav-link default-font">
                   Sign In
                 </a>
               </li>

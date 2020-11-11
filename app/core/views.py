@@ -1,13 +1,8 @@
 from django.shortcuts import render
 
-
 from core.models import (
     Product,
     Order
-)
-
-from core.forms import (
-    CustomUserCreationForm
 )
 
 from django.contrib.auth import (
@@ -33,13 +28,18 @@ def getIndex(request):
     }
     return render(request, 'index.html', data)
 
+def getAddProduct(request):
+    return render(request, 'products/add-product.html')
+
+#Views to login and authentication
 def getAuthLogIn(request):
     if not request.user.is_authenticated:
         return render(request, 'auth/login.html')
     return render(request, 'index.html')
 
-
 def postAuthLogIn(request):
+    if not request.user.is_authenticated:
+        return render(request, 'auth/login.html')
     username = request.POST['username']
     password = request.POST['password']
     user = authenticate(request, username=username, password=password)
@@ -51,12 +51,9 @@ def postAuthLogIn(request):
         }
         return render(request, 'auth/login.html', data)
     return render(request, 'index.html')
+# end
 
-##
-
-def getAddProduct(request):
-    return render(request, 'products/add-product.html')
-
+# Views to Stripe payments
 @permission_required('core.view_product')
 def getCheckout(request, id):
     product = Product.objects.get(productId=id)
@@ -87,19 +84,4 @@ def getSuccessPay(request, id):
         total_price = fetchProduct.price
     )
     return render(request, 'index.html')
-
-def getSignup(request):
-    data = {
-        'form': CustomUserCreationForm
-    }
-    if request.method == 'POST':
-        formulario = CustomUserCreationForm(data=request.POST)
-        if formulario.is_valid():
-            formulario.save()
-            user = authenticate(username=formulario.cleaned_data['username'], password=formulario.cleaned_data['password1'])
-            user_group = Group.objects.get(name='Clients')
-            user.groups.add(user_group)
-            login(request, user)
-            return render(request, 'index.html', data)
-        data['form'] = formulario
-    return render(request, 'registration/registro.html', data)
+# end

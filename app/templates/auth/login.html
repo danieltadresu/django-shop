@@ -19,7 +19,7 @@
               Login
             </div>
             <div class="card-body">
-              <form action="auth/" method="POST">{% csrf_token %}
+              <form action="/auth/" method="POST">{% csrf_token %}
                 <div class="form-group">
                   <label class="default-font" for="username">Username</label>
                   <input id="username" name="username" type="text" class="form-control default-font">
