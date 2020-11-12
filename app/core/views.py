@@ -16,7 +16,10 @@ from django.contrib.auth.decorators import (
     permission_required
 )
 
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import (
+    User,
+    Group
+)
 
 import stripe
 stripe.api_key = 'sk_test_51HQlYBKVWRemJMNbYdPyEEGInMoFLN9MwF1UA0m6rxk8o97VVB4jS5B4LXBjNN8XGeVXWiBjcNTT1NqIin9I1HJj00LtxiIU4C'
@@ -32,14 +35,16 @@ def getAddProduct(request):
     return render(request, 'products/add-product.html')
 
 #Views to login and authentication
-def getAuthLogIn(request):
+def getLogIn(request):
     if not request.user.is_authenticated:
         return render(request, 'auth/login.html')
     return render(request, 'index.html')
 
-def postAuthLogIn(request):
-    if not request.user.is_authenticated:
-        return render(request, 'auth/login.html')
+def getLogOut(request):
+    logout(request)
+    return render(request, 'index.html')
+
+def postLogIn(request):
     username = request.POST['username']
     password = request.POST['password']
     user = authenticate(request, username=username, password=password)
@@ -51,6 +56,21 @@ def postAuthLogIn(request):
         }
         return render(request, 'auth/login.html', data)
     return render(request, 'index.html')
+
+def getSignUp(request):
+    if not request.user.is_authenticated:
+        return render(request, 'auth/signup.html')
+    return render(request, 'index.html')
+
+def postSignUp(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    email = request.POST['email']
+    user = User.objects.create_user(username, email, password)
+    user.save()
+    user = authenticate(request, username=username, password=password)
+    login(request, user)
+    return render(request, 'auth/signup.html')
 # end
 
 # Views to Stripe payments
