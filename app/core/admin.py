@@ -7,7 +7,8 @@ from core.models import (
     Band,
     Product,
     Client,
-    Order
+    Order,
+    OrderItem
 )
 
 admin.site.register(Category)
@@ -15,3 +16,4 @@ admin.site.register(Band)
 admin.site.register(Product)
 admin.site.register(Client)
 admin.site.register(Order)
+admin.site.register(OrderItem)
