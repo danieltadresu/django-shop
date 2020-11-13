@@ -38,7 +38,7 @@ class Client(models.Model):
         return self.rut
 
 class Order(models.Model):
-    orderId      = models.AutoField(primary_key=True)
+    orderId      = models.IntegerField(primary_key=True)
     total_price  = models.IntegerField(null=True)
     user         = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
@@ -48,7 +48,38 @@ class Order(models.Model):
 class OrderItem(models.Model):
     orderItemId = models.IntegerField(primary_key=True)
     product     = models.ForeignKey(Product, on_delete=models.CASCADE)
-    order       = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order       = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return str(self.orderItemId)
+
+
+
+class Vehiculo():
+    def __init__(self, marca,modelo):
+        self.__marca = marca
+        self.__modelo = modelo
+        self.__estado = True
+        self.__items = []
+
+    def agregar(self, colores):
+        self.__items.append(colores)
+
+    def arrancar(self):
+        if(self.__estado == "False"):
+            self.__estado == True
+
+    def getMarca(self):
+        return self.__marca
+
+    def setMarca(self,marca):
+        self.__marca = marca
+
+    def getModelo(self):
+        return self.__modelo
+
+    def setModelo(self,modelo):
+        self.__modelo = modelo
+
+    def __str__(self):
+        return "Marca: " + self.__marca + " | Modelo: " + self.__modelo + " | " + str(self.__items)
