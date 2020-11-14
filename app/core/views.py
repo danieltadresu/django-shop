@@ -37,27 +37,47 @@ def getIndex(request):
     }
     return render(request, 'index.html', data)
 
-def getAddProduct(request):
-    return render(request, 'products/add-product.html')
-
-def postAddToBag(request, id):
+def getCart(request):
     if not request.user.is_authenticated:
         return render(request, 'auth/login.html')
+    fetchAllItems = []
+    if request.session.get('ar'):
+        items = request.session.get('ar')
+        product = None
+        index = 0
+        for i in items:
+            product = Product.objects.get(pk=items[index])
+            fetchAllItems.insert(index, product)
+            index += 1
     else:
-        productsCart = 0
-        if request.session.get('ar'):
-            items = request.session.get('ar')
-            index = len(items)
-            items.insert(index + 1, id)
-            request.session['ar'] = items
-            productsCart = index + 1
-        else:
-            ar = []
-            ar.insert(0, id)
-            request.session['ar'] = ar
-            items = request.session.get('ar')
-            productsCart = 1
+        print('No Hay sesiones!')
+
+    data = {
+        'orderItems': fetchAllItems,
+        'items': len(fetchAllItems)
+    }
+    return render(request, 'shop/cart.html', data)
+
+def postAddToCart(request, id):
+    if not request.user.is_authenticated:
+        return render(request, 'auth/login.html')
+    productsCart = 0
+    if request.session.get('ar'):
+        items = request.session.get('ar')
+        index = len(items)
+        items.insert(index + 1, id)
+        request.session['ar'] = items
+        productsCart = index + 1
+    else:
+        ar = []
+        ar.insert(0, id)
+        request.session['ar'] = ar
+        items = request.session.get('ar')
+        productsCart = 1
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+def getAddProduct(request):
+    return render(request, 'products/add-product.html')
 
 #Views to login and authentication
 def getLogIn(request):
@@ -74,14 +94,6 @@ def getLogIn(request):
     data = {
         'products': fetchAllProducts,
         'items': selectedItems
-    }
-    return render(request, 'index.html', data)
-
-def getLogOut(request):
-    logout(request)
-    fetchAllProducts = Product.objects.all()[:4]
-    data = {
-        'products': fetchAllProducts
     }
     return render(request, 'index.html', data)
 
@@ -122,50 +134,17 @@ def postSignUp(request):
     user.groups.add(user_group)
     login(request, user)
     return render(request, 'auth/signup.html')
+
+def getLogOut(request):
+    logout(request)
+    fetchAllProducts = Product.objects.all()[:4]
+    data = {
+        'products': fetchAllProducts
+    }
+    return render(request, 'index.html', data)
 # end
 
 # Views to Stripe payments
-def getCheckout(request):
-    if not request.user.is_authenticated:
-        return render(request, 'auth/login.html')
-    fetchAllItems = []
-    if request.session.get('ar'):
-        items = request.session.get('ar')
-        product = None
-        index = 0
-        for i in items:
-            product = Product.objects.get(pk=items[index])
-            fetchAllItems.insert(index, product)
-            index += 1
-    else:
-        print('No Hay sesiones!')
-
-    data = {
-        'orderItems': fetchAllItems,
-        'items': len(fetchAllItems)
-    }
-    return render(request, 'shop/checkout.html', data)
-    #product = Product.objects.get(productId=id)
-    #checkout_session = stripe.checkout.Session.create(
-    #    payment_method_types=['card'],
-    #    line_items=[
-    #        {
-    #          'price_data': {
-    #            'currency': 'clp',
-    #            'unit_amount': product.price,
-    #            'product_data': {
-    #              'name': product.title,
-    #             },
-    #           },
-    #             'quantity': 1,
-    #         },
-    #        ],
-    #        mode='payment',
-    #        success_url='http://localhost:8000/success/' + str(id),
-    #        cancel_url='http://localhost:8000',
-    #    )
-    #return render(request, 'shop/checkout.html', {'id': checkout_session.id})
-
 def getSuccessPay(request, id):
     fetchProduct = Product.objects.get(productId=id)
     current_user = request.user
