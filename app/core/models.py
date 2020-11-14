@@ -29,6 +29,7 @@ class Product(models.Model):
     def __str__(self):
         return self.title
 
+
 class Client(models.Model):
     rut         = models.CharField(primary_key=True, max_length=11)
     name        = models.CharField(max_length=30)
@@ -49,6 +50,7 @@ class OrderItem(models.Model):
     orderItemId = models.IntegerField(primary_key=True)
     product     = models.ForeignKey(Product, on_delete=models.CASCADE)
     order       = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
+    quantity    = models.IntegerField(null=True, default=1)
 
     def __str__(self):
         return str(self.orderItemId)
