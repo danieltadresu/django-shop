@@ -33,6 +33,8 @@ def getIndex(request):
 
     if request.session.get('ar'):
         print('Hay sesiones!')
+        items = request.session.get('ar')
+        print(len(items))
     else:
         print('No Hay sesiones!')
     #items = request.session['ar']
@@ -42,14 +44,14 @@ def getIndex(request):
 def getAddProduct(request):
     return render(request, 'products/add-product.html')
 
-def postAddToBag(request):
+def postAddToBag(request, id):
     if not request.user.is_authenticated:
         return render(request, 'auth/login.html')
 
     #miVehiculo = Vehiculo("Ferrari","Enzo")
     #miVehiculo.agregar('rojo')
     #print(miVehiculo)
-    productId = 0
+
 
     #num_visits = request.session.get('num_visits', 0)
     #request.session['num_visits'] = num_visits + 1
@@ -57,8 +59,22 @@ def postAddToBag(request):
 
     #items = request.session.get('ar', [])
     #request.session['ar'] = items.append(productId + 1)
-
-    request.session['ar'] = 'foo'
+    if request.session.get('ar'):
+        items = request.session.get('ar')
+        print('Hay sesiones!')
+        print(items)
+        index = len(items)
+        items.insert(index + 1, id)
+        request.session['ar'] = items
+        #index = len(items)
+        #items.insert(index + 1, id)
+    else:
+        ar = []
+        ar.insert(0, id)
+        #request.session['ar'] = [id]
+        request.session['ar'] = ar
+        items = request.session.get('ar')
+        print(items)
     return render(request, 'shop/cart.html')
 
 #Views to login and authentication

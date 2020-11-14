@@ -16,7 +16,7 @@ from core.views import (
 urlpatterns = [
     path('', getIndex, name='getIndex'),
     path('admin/add-product', getAddProduct, name='addProduct'),
-    path('add-to-bag/', postAddToBag, name='postAddToBag'),
+    path('add-to-bag/<int:id>', postAddToBag, name='postAddToBag'),
     path('login/', getLogIn, name='getLogIn'),
     path('login-auth/', postLogIn, name='postLogIn'),
     path('logout/', getLogOut, name='getLogOut'),
