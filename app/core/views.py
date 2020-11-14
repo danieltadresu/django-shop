@@ -21,80 +21,67 @@ from django.contrib.auth.models import (
 import stripe
 stripe.api_key = 'sk_test_51HQlYBKVWRemJMNbYdPyEEGInMoFLN9MwF1UA0m6rxk8o97VVB4jS5B4LXBjNN8XGeVXWiBjcNTT1NqIin9I1HJj00LtxiIU4C'
 
+productsCart = 0
+
 def getIndex(request):
     fetchAllProducts = Product.objects.all()[:4]
     data = {
-        'products': fetchAllProducts
+        'products': fetchAllProducts,
+        'items': productsCart
     }
-    #num_visits = request.session.get('num_visits', 0)
-    #request.session['num_visits'] = num_visits + 1
-    #num = request.session.get('num_visits', 0)
-    #print(num)
-
     if request.session.get('ar'):
         print('Hay sesiones!')
         items = request.session.get('ar')
         print(len(items))
     else:
         print('No Hay sesiones!')
-    #items = request.session['ar']
-    #print(items)
-    return render(request, 'index.html', data)
 
+    return render(request, 'index.html', data)
 def getAddProduct(request):
     return render(request, 'products/add-product.html')
-
 def postAddToBag(request, id):
     if not request.user.is_authenticated:
         return render(request, 'auth/login.html')
-
-    #miVehiculo = Vehiculo("Ferrari","Enzo")
-    #miVehiculo.agregar('rojo')
-    #print(miVehiculo)
-
-
-    #num_visits = request.session.get('num_visits', 0)
-    #request.session['num_visits'] = num_visits + 1
-    #print(num_visits)
-
-    #items = request.session.get('ar', [])
-    #request.session['ar'] = items.append(productId + 1)
-    if request.session.get('ar'):
-        items = request.session.get('ar')
-        print('Hay sesiones!')
-        print(items)
-        index = len(items)
-        items.insert(index + 1, id)
-        request.session['ar'] = items
-        #index = len(items)
-        #items.insert(index + 1, id)
     else:
-        ar = []
-        ar.insert(0, id)
-        #request.session['ar'] = [id]
-        request.session['ar'] = ar
-        items = request.session.get('ar')
-        print(items)
-    return render(request, 'shop/cart.html')
-
+        if request.session.get('ar'):
+            items = request.session.get('ar')
+            print('Hay sesiones!')
+            print(items)
+            index = len(items)
+            items.insert(index + 1, id)
+            request.session['ar'] = items
+            productsCart = index + 1
+        else:
+            ar = []
+            ar.insert(0, id)
+            request.session['ar'] = ar
+            items = request.session.get('ar')
+            print(items)
+            productsCart = 1
+    fetchAllProducts = Product.objects.all()[:4]
+    data = {
+        'products': fetchAllProducts,
+        'items': productsCart
+    }
+    return render(request, 'shop/cart.html', data)
 #Views to login and authentication
 def getLogIn(request):
     if not request.user.is_authenticated:
         return render(request, 'auth/login.html')
     fetchAllProducts = Product.objects.all()[:4]
     data = {
-        'products': fetchAllProducts
+        'products': fetchAllProducts,
+        'items': productsCart
     }
     return render(request, 'index.html', data)
-
 def getLogOut(request):
     logout(request)
     fetchAllProducts = Product.objects.all()[:4]
     data = {
-        'products': fetchAllProducts
+        'products': fetchAllProducts,
+        'items': productsCart
     }
     return render(request, 'index.html', data)
-
 def postLogIn(request):
     username = request.POST['username']
     password = request.POST['password']
@@ -108,19 +95,19 @@ def postLogIn(request):
         return render(request, 'auth/login.html', data)
     fetchAllProducts = Product.objects.all()[:4]
     data = {
-        'products': fetchAllProducts
+        'products': fetchAllProducts,
+        'items': productsCart
     }
     return render(request, 'index.html', data)
-
 def getSignUp(request):
     if not request.user.is_authenticated:
         return render(request, 'auth/signup.html')
     fetchAllProducts = Product.objects.all()[:4]
     data = {
-        'products': fetchAllProducts
+        'products': fetchAllProducts,
+        'items': productsCart
     }
     return render(request, 'index.html', data)
-
 def postSignUp(request):
     username = request.POST['username']
     password = request.POST['password']
@@ -138,6 +125,19 @@ def postSignUp(request):
 def getCheckout(request):
     if not request.user.is_authenticated:
         return render(request, 'auth/login.html')
+
+    if request.session.get('ar'):
+        print('Hay sesiones!')
+        items = request.session.get('ar')
+        print(len(items))
+        print(items)
+        product = Product.objects.get(pk=items[0])
+        print(product)
+        print(items)
+    else:
+        print('No Hay sesiones!')
+
+
     return render(request, 'shop/checkout.html')
 
     #product = Product.objects.get(productId=id)
@@ -160,7 +160,6 @@ def getCheckout(request):
     #        cancel_url='http://localhost:8000',
     #    )
     #return render(request, 'shop/checkout.html', {'id': checkout_session.id})
-
 def getSuccessPay(request, id):
     fetchProduct = Product.objects.get(productId=id)
     current_user = request.user
@@ -171,7 +170,8 @@ def getSuccessPay(request, id):
     )
     fetchAllProducts = Product.objects.all()[:4]
     data = {
-        'products': fetchAllProducts
+        'products': fetchAllProducts,
+        'items': productsCart
     }
     return render(request, 'index.html', data)
 # end

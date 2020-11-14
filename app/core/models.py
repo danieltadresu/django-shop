@@ -56,9 +56,10 @@ class OrderItem(models.Model):
 
 
 class Vehiculo():
-    def __init__(self, marca,modelo):
+    def __init__(self, marca,modelo,cart):
         self.__marca = marca
         self.__modelo = modelo
+        self.__cart = cart
         self.__estado = True
         self.__items = []
 
@@ -80,6 +81,12 @@ class Vehiculo():
 
     def setModelo(self,modelo):
         self.__modelo = modelo
+
+    def getCart(self):
+        return self.__cart
+
+    def setCart(self,modelo):
+        self.cart = cart
 
     def __str__(self):
         return "Marca: " + self.__marca + " | Modelo: " + self.__modelo + " | " + str(self.__items)
