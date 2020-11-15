@@ -4,8 +4,7 @@ from django.http import HttpResponseRedirect
 
 from core.models import (
     Product,
-    Order,
-    Vehiculo
+    Order
 )
 
 from django.contrib.auth import (
@@ -41,24 +40,26 @@ def getCart(request):
     if not request.user.is_authenticated:
         return render(request, 'auth/login.html')
     fetchAllItems = []
+    total_price = 0
     if request.session.get('ar'):
         items = request.session.get('ar')
         product = None
         index = 0
         for i in items:
             product = Product.objects.get(pk=items[index])
+            total_price += product.price
             fetchAllItems.insert(index, product)
             index += 1
     else:
         print('No Hay sesiones!')
-
     data = {
         'orderItems': fetchAllItems,
-        'items': len(fetchAllItems)
+        'items': len(fetchAllItems),
+        'totalPrice': total_price
     }
     return render(request, 'shop/cart.html', data)
 
-def postAddToCart(request, id):
+def postCartAddItem(request, id):
     if not request.user.is_authenticated:
         return render(request, 'auth/login.html')
     productsCart = 0
@@ -74,6 +75,20 @@ def postAddToCart(request, id):
         request.session['ar'] = ar
         items = request.session.get('ar')
         productsCart = 1
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+def postCartDeleteItem(request, id):
+    if request.session.get('ar'):
+        items = request.session.get('ar')
+        selectedItems = len(items)
+        index = 0
+        for i in items:
+            if items[index] == id:
+                items.pop(index)
+            index += 1
+        request.session['ar'] = items
+    else:
+        print('There are not saved sessions!')
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def getAddProduct(request):

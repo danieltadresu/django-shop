@@ -1,22 +1,37 @@
 {% extends 'base.html' %}
-
+{% load humanize %}
 {% block content %}
     <div class="">
       <section>
-        <div class="container mt-5">
+        <div class="container mt- mx-auto" style="max-width: 600px;">
             {% if orderItems|length > 0 %}
-            <div class="mt-5 mb-5">
-              <button id="order-btn" class="btn btn-success default-font">ORDER</button>
+            <div class="d-flex align-items-center justify-content-between mt-5 mb-5">
+              <div class="">
+                <div class="">
+                  <button class="btn btn-primary default-font" type="button" name="button" style="font-size: .9rem;">ORDER NOW</button>
+                </div>
+              </div>
+              <div>
+                <h5 class="text-dark default-font mt-1 mb-1">Total ${{ totalPrice|intcomma }}</h5>
+              </div>
             </div>
-            <ul class="list-group">
-              {% for order in orderItems %}
-                <li class="list-group-item">
-                  <div class="container default-font">
-                    <p>{{ order.title }}</p>
-                  </div>
-                </li>
-              {% endfor %}
-            </ul>
+            <div class="">
+              <ul class="list-group">
+                {% for order in orderItems %}
+                  <li class="list-group-item">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div class="">
+                        <h5 class="text-dark default-font mt-1 mb-1">{{ order.title }}</h5>
+                        <p class="text-dark default-font mt-1 mb-1" style="font-size: .9rem;">${{ order.price|intcomma }}</p>
+                      </div>
+                      <div class="">
+                        <a href="/cart-delete-item/{{order.productId}}" class="btn btn-outline-danger default-font" style="font-size: .9rem;">DELETE</a>
+                      </div>
+                    </div>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
             {% else %}
               <h1> There aren't items in the Cart. </h1>
             {% endif %}
