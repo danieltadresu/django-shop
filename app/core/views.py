@@ -134,7 +134,7 @@ def getOrder(request):
     else:
         #No hay items, el valor total es 0$ por ende no se puede realizar una orden,
         #Se retorna al index
-        return render(request, 'index.html')
+        return HttpResponseRedirect('/')
     data = {
         'orderItems': fetchAllItems,
         'items': len(fetchAllItems),
@@ -178,19 +178,7 @@ def getAddProduct(request):
 def getLogIn(request):
     if not request.user.is_authenticated:
         return render(request, 'auth/login.html')
-    items = None
-    selectedItems = 0
-    if request.session.get('ar'):
-        items = request.session.get('ar')
-        selectedItems = len(items)
-    else:
-        pass
-    fetchAllProducts = Product.objects.all()[:4]
-    data = {
-        'products': fetchAllProducts,
-        'items': selectedItems
-    }
-    return render(request, 'index.html', data)
+    return HttpResponseRedirect('/')
 
 def postLogIn(request):
     username = request.POST['username']
