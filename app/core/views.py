@@ -203,20 +203,12 @@ def postLogIn(request):
             'check' : False
         }
         return render(request, 'auth/login.html', data)
-    fetchAllProducts = Product.objects.all()[:4]
-    data = {
-        'products': fetchAllProducts
-    }
-    return render(request, 'index.html', data)
+    return HttpResponseRedirect('/')
 
 def getSignUp(request):
     if not request.user.is_authenticated:
         return render(request, 'auth/signup.html')
-    fetchAllProducts = Product.objects.all()[:4]
-    data = {
-        'products': fetchAllProducts
-    }
-    return render(request, 'index.html', data)
+    return HttpResponseRedirect('/')
 
 def postSignUp(request):
     username = request.POST['username']
@@ -228,13 +220,9 @@ def postSignUp(request):
     user_group = Group.objects.get(name='Clients')
     user.groups.add(user_group)
     login(request, user)
-    return render(request, 'auth/signup.html')
+    return HttpResponseRedirect('/')
 
 def getLogOut(request):
     logout(request)
-    fetchAllProducts = Product.objects.all()[:4]
-    data = {
-        'products': fetchAllProducts
-    }
-    return render(request, 'index.html', data)
+    return HttpResponseRedirect('/')
 # end
