@@ -4,7 +4,8 @@ from django.http import HttpResponseRedirect
 
 from core.models import (
     Product,
-    Order
+    Order,
+    OrderItem
 )
 
 from django.contrib.auth import (
@@ -19,7 +20,9 @@ from django.contrib.auth.models import (
 )
 
 import stripe
-stripe.api_key = 'sk_test_51HQlYBKVWRemJMNbYdPyEEGInMoFLN9MwF1UA0m6rxk8o97VVB4jS5B4LXBjNN8XGeVXWiBjcNTT1NqIin9I1HJj00LtxiIU4C'
+stripe.api_key = (
+    'sk_test_51HQlYBKVWRemJMNbYdPyEEGInMoFLN9MwF1UA0m6rxk8o97VVB4jS5B4LXBjNN8XGeVXWiBjcNTT1NqIin9I1HJj00LtxiIU4C'
+)
 
 def getIndex(request):
     items = None
@@ -95,7 +98,7 @@ def postCartDeleteItem(request, id):
         print('There are not saved sessions!')
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-def getCheckout(request):
+def getOrder(request):
     if not request.user.is_authenticated:
         return render(request, 'auth/login.html')
     fetchAllItems = []
@@ -110,6 +113,24 @@ def getCheckout(request):
             total_price += product.price
             fetchAllItems.insert(index, product)
             index += 1
+        checkout_session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=[
+            {
+              'price_data': {
+                  'currency': 'clp',
+                  'unit_amount': total_price,
+                  'product_data': {
+                      'name': 'VINYLSMIND',
+                   },
+               },
+               'quantity': 1,
+             },
+            ],
+            mode='payment',
+            success_url='http://localhost:8000/checkout/{CHECKOUT_SESSION_ID}',
+            cancel_url='http://localhost:8000/cart',
+        )
     else:
         #No hay items, el valor total es 0$ por ende no se puede realizar una orden,
         #Se retorna al index
@@ -117,9 +138,38 @@ def getCheckout(request):
     data = {
         'orderItems': fetchAllItems,
         'items': len(fetchAllItems),
-        'totalPrice': total_price
+        'totalPrice': total_price,
+        'id': checkout_session.id
     }
-    return render(request, 'shop/checkout.html', data)
+    return render(request, 'shop/order-details.html', data)
+
+def postOrder(request, id):
+    items = request.session.get('ar')
+    pay = stripe.checkout.Session.retrieve(id)
+    countAllOrders = Order.objects.all().count()
+    order = Order.objects.create(
+        orderId = countAllOrders + 1,
+        total_price = pay.amount_total,
+        user = request.user
+    )
+    order.save()
+    #Por cada Item almacenado en la sesion, registrar 1 item
+    #en la tabla OrderItem
+
+    countAllItems = OrderItem.objects.all().count() #Total de registros
+
+    for i in items:
+        countAllItems += 1
+        product = Product.objects.get(pk=i)
+        orderItem = OrderItem.objects.create(
+            orderItemId = countAllItems,
+            product = product,
+            order = order,
+            quantity = 1
+        )
+        orderItem.save()
+    return render(request, 'shop/checkout.html')
+
 
 def getAddProduct(request):
     return render(request, 'products/add-product.html')
