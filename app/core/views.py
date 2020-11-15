@@ -95,6 +95,32 @@ def postCartDeleteItem(request, id):
         print('There are not saved sessions!')
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+def getCheckout(request):
+    if not request.user.is_authenticated:
+        return render(request, 'auth/login.html')
+    fetchAllItems = []
+    total_price = 0
+    if request.session.get('ar'):
+        items = request.session.get('ar')
+        product = None
+        index = 0
+        print(items)
+        for i in items:
+            product = Product.objects.get(pk=items[index])
+            total_price += product.price
+            fetchAllItems.insert(index, product)
+            index += 1
+    else:
+        #No hay items, el valor total es 0$ por ende no se puede realizar una orden,
+        #Se retorna al index
+        return render(request, 'index.html')
+    data = {
+        'orderItems': fetchAllItems,
+        'items': len(fetchAllItems),
+        'totalPrice': total_price
+    }
+    return render(request, 'shop/checkout.html', data)
+
 def getAddProduct(request):
     return render(request, 'products/add-product.html')
 

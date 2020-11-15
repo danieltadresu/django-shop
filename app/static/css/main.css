@@ -20,3 +20,14 @@
 .small-font {
   font-size: .8rem;
 }
+
+ul {
+  margin: 0;
+  list-style-type: none;
+  padding: 0
+}
+
+li {
+  margin: 0;
+  padding: 0;
+}

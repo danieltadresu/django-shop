@@ -3,48 +3,59 @@
 {% block content %}
     <div class="">
       <section>
-        <div class="container mt- mx-auto" style="max-width: 600px;">
-            {% if orderItems|length > 0 %}
-            <div class="d-flex align-items-center justify-content-between mt-5 mb-5">
-              <div class="">
-                <div class="">
-                  <button
-                    id="order-btn"
-                    class="btn btn-primary default-font"
-                    type="button"
-                    name="button"
-                    style="font-size: .9rem;">
-                    ORDER NOW
-                  </button>
-                </div>
-              </div>
-              <div>
-                <h5 class="text-dark default-font mt-1 mb-1">Total ${{ totalPrice|intcomma }}</h5>
-              </div>
-            </div>
+        <div class="container mt-5 mx-auto" style="max-width: 600px;">
+          <div class="d-flex align-items-center justify-content-between mt-5 mb-5">
             <div class="">
-              <ul class="list-group">
-                {% for order in orderItems %}
-                  <li class="list-group-item">
-                    <div class="d-flex align-items-center justify-content-between">
-                      <div class="">
-                        <h5 class="text-dark default-font mt-1 mb-1">{{ order.title }}</h5>
-                        <p class="text-dark default-font mt-1 mb-1" style="font-size: .9rem;">${{ order.price|intcomma }}</p>
-                      </div>
-                      <div class="">
-                        <a href="/cart-delete-item/{{order.productId}}" class="btn btn-outline-danger default-font" style="font-size: .9rem;">DELETE</a>
-                      </div>
-                    </div>
-                  </li>
-                {% endfor %}
-              </ul>
+              <div class="">
+                <a
+                  href="/cart"
+                  class="btn btn-primary default-font"
+                  type="button"
+                  name="button"
+                  style="font-size: .9rem;">
+                  <!--ORDER NOW-->
+                  DETAIL ORDERS
+                  <i class="far fa-arrow-alt-circle-left"></i>
+                </a>
+              </div>
             </div>
-            {% else %}
-              <h1> There aren't items in the Cart. </h1>
-            {% endif %}
+            <div>
+              <h5 class="text-dark default-font mt-1 mb-1">Total ${{ totalPrice|intcomma }}</h5>
+            </div>
+          </div>
+
+        </div>
+        <div class="container mt-5 mx-auto" style="max-width: 500px;">
+          <div class="card m-0 p-0">
+            <div class="card-header text-muted default-font">
+              PAYMENT DETAILS
+              <!-- What do you expect? -->
+              <i class="fas fa-info-circle text-primary"></i>
+            </div>
+            <div class="card-body ">
+              <div class="m-0 p-0">
+                <ul>
+                  {% for order in orderItems %}
+                    <li class="text-dark default-font"> {{ order.title }} </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+            <div class="card-body pt-0">
+              <a
+                id="order-btn"
+                class="btn btn-light btn-block border default-font"
+                type="button"
+                name="button"
+                style="font-size: .9rem;">
+                ORDER NOW
+              </a>
+            </div>
+          </div>
         </div>
       </section>
     </div>
+
 
     <script src="https://js.stripe.com/v3/"></script>
     <script>
