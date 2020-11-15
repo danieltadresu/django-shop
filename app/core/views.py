@@ -45,6 +45,7 @@ def getCart(request):
         items = request.session.get('ar')
         product = None
         index = 0
+        print(items)
         for i in items:
             product = Product.objects.get(pk=items[index])
             total_price += product.price
@@ -82,10 +83,13 @@ def postCartDeleteItem(request, id):
         items = request.session.get('ar')
         selectedItems = len(items)
         index = 0
+        print(items)
         for i in items:
             if items[index] == id:
                 items.pop(index)
+                break
             index += 1
+        print(items)
         request.session['ar'] = items
     else:
         print('There are not saved sessions!')
@@ -152,22 +156,6 @@ def postSignUp(request):
 
 def getLogOut(request):
     logout(request)
-    fetchAllProducts = Product.objects.all()[:4]
-    data = {
-        'products': fetchAllProducts
-    }
-    return render(request, 'index.html', data)
-# end
-
-# Views to Stripe payments
-def getSuccessPay(request, id):
-    fetchProduct = Product.objects.get(productId=id)
-    current_user = request.user
-    Order.objects.create(
-        product = fetchProduct,
-        total_price = fetchProduct.price,
-        user = current_user
-    )
     fetchAllProducts = Product.objects.all()[:4]
     data = {
         'products': fetchAllProducts

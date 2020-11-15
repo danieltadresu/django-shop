@@ -10,8 +10,7 @@ from core.views import (
     postLogIn,
     getLogOut,
     getSignUp,
-    postSignUp,
-    getSuccessPay,
+    postSignUp
 )
 
 urlpatterns = [
@@ -25,5 +24,4 @@ urlpatterns = [
     path('logout/', getLogOut, name='getLogOut'),
     path('signup/', getSignUp, name='getSignUp'),
     path('signup-auth/', postSignUp, name='postSignUp'),
-    path('success/<int:id>', getSuccessPay, name='success'),
 ]
