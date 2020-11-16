@@ -4,7 +4,7 @@
     <span class="navbar-toggler-icon"> </span>
   </button>
   <div class="collapse navbar-collapse" id="nav">
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a href="/products" class="nav-link default-font">
           Catalogo
@@ -17,22 +17,22 @@
         </a>
       </li>
       {% endif %}
-
+    </ul>
+    <ul class="navbar-nav ml-auto">
       {% if user.is_authenticated %}
       <li class="nav-item">
-        <a href="/logout" class="nav-link default-font">
-          Logout
+        <a href="/cart" class="nav-link default-font">
+          {{ items }} items selected
         </a>
       </li>
       <li class="nav-item">
         <a href="/" class="nav-link default-font">
-          {{ user.username|upper }}
+          {{ user.username }}
         </a>
       </li>
       <li class="nav-item">
-        <a href="/cart" class="nav-link default-font">
-            <i class="fas fa-shopping-cart" style="font-size: .8rem;"></i>
-            {{ items }}
+        <a href="/logout" class="nav-link default-font">
+          Logout
         </a>
       </li>
       {% else %}
