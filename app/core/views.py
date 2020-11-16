@@ -37,7 +37,7 @@ def getIndex(request):
         'products': fetchAllProducts,
         'items': selectedItems
     }
-    return render(request, 'index.html', data)
+    return render(request, 'shop/index.html', data)
 
 def getProducts(request):
     items = None
