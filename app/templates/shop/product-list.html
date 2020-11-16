@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="">
+    <section>
+      <div class="container">
+        <!--mt-5
+        <h1>All Products</h1>
+        -->
+        <div class="row mt-5">
+          {% for prods in products %}
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mt-4">
+                <div class="card">
+                  <img class="card-img-top" src="{{ prods.image.url }}" alt="Card image" style="width:100%; max-height: 150px;">
+                  <div class="card-body">
+                    <h5 class="card-title default-font">{{ prods.title }}</h5>
+                    <p class="card-text default-font" style="font-size: .8rem;"> {{ prods.band}} </p>
+                    <a id="cart-add-item" href="/cart-add-item/{{prods.productId}}" class="btn btn-outline-dark default-font" style="font-size: .8rem;">ADD <i class="fas fa-shopping-bag"></i></a>
+                  </div>
+                </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  </div>
+{% endblock %}

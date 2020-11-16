@@ -39,6 +39,24 @@ def getIndex(request):
     }
     return render(request, 'index.html', data)
 
+def getProducts(request):
+    items = None
+    selectedItems = 0
+    if request.session.get('ar'):
+        items = request.session.get('ar')
+        selectedItems = len(items)
+    else:
+        selectedItems = 0
+    fetchAllProducts = Product.objects.all()
+    data = {
+        'products': fetchAllProducts,
+        'items': selectedItems
+    }
+    return render(request, 'shop/product-list.html', data)
+
+def getAddProduct(request):
+    return render(request, 'products/add-product.html')
+
 def getCart(request):
     if not request.user.is_authenticated:
         return render(request, 'auth/login.html')
@@ -155,9 +173,7 @@ def postOrder(request, id):
     order.save()
     #Por cada Item almacenado en la sesion, registrar 1 item
     #en la tabla OrderItem
-
     countAllItems = OrderItem.objects.all().count() #Total de registros
-
     for i in items:
         countAllItems += 1
         product = Product.objects.get(pk=i)
@@ -169,10 +185,6 @@ def postOrder(request, id):
         )
         orderItem.save()
     return render(request, 'shop/checkout.html')
-
-
-def getAddProduct(request):
-    return render(request, 'products/add-product.html')
 
 #Views to login and authentication
 def getLogIn(request):

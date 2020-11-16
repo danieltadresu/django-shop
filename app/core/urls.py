@@ -2,6 +2,7 @@ from django.urls import path
 
 from core.views import (
     getIndex,
+    getProducts,
     getAddProduct,
     getCart,
     postCartAddItem,
@@ -17,6 +18,7 @@ from core.views import (
 
 urlpatterns = [
     path('', getIndex, name='getIndex'),
+    path('products/', getProducts, name='getProducts'),
     path('admin/add-product', getAddProduct, name='addProduct'),
     path('cart/', getCart, name='cart'),
     path('cart-add-item/<int:id>', postCartAddItem, name='postCartAddItem'),
