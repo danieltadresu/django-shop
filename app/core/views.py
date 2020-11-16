@@ -54,6 +54,9 @@ def getProducts(request):
     }
     return render(request, 'shop/product-list.html', data)
 
+def getAdminProducts(request):
+    return render(request, 'products/admin-products.html')
+
 def getAddProduct(request):
     return render(request, 'products/add-product.html')
 

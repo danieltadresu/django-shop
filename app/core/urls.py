@@ -3,6 +3,7 @@ from django.urls import path
 from core.views import (
     getIndex,
     getProducts,
+    getAdminProducts,
     getAddProduct,
     getCart,
     postCartAddItem,
@@ -19,7 +20,8 @@ from core.views import (
 urlpatterns = [
     path('', getIndex, name='getIndex'),
     path('products/', getProducts, name='getProducts'),
-    path('admin/add-product', getAddProduct, name='addProduct'),
+    path('admin-products/', getAdminProducts, name='getAdminProducts'),
+    path('admin-products/add-product', getAddProduct, name='addProduct'),
     path('cart/', getCart, name='cart'),
     path('cart-add-item/<int:id>', postCartAddItem, name='postCartAddItem'),
     path('cart-delete-item/<int:id>', postCartDeleteItem, name='postCartDeleteItem'),
