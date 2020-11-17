@@ -21,7 +21,6 @@ from core.models import (
     Band
 )
 
-
 import stripe
 stripe.api_key = (
     'sk_test_51HQlYBKVWRemJMNbYdPyEEGInMoFLN9MwF1UA0m6rxk8o97VVB4jS5B4LXBjNN8XGeVXWiBjcNTT1NqIin9I1HJj00LtxiIU4C'
