@@ -73,3 +73,9 @@
     height: 350px;
     background-size:cover
 }
+
+.container-carousel {
+  width: 50%;
+  margin-right: -15px;
+    margin-left: -15px;
+}
