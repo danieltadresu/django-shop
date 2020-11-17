@@ -14,43 +14,73 @@
       <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         {% include "includes/admin-navigation.html" %}
       </nav>
-      <div class="container mt-5">
+      <div class="container mt-4">
           <section>
-            <div class="container mt-5">
-              <div class="col-lg-4 col-md-8 col-sm-12 col-12 mx-auto">
+            <div class="container">
+              <div class="col-lg-4 col-md-6 col-sm-8 col-12 mx-auto">
                 <form>
+                <!--
+                  <div class="form-group d-flex">
+                    <div class="">
+                      <label for="productId" class="default-font" style="font-size: .9rem;">
+                        PRODUCT ID
+                      </label>
+                    </div>
+                    <div class="">
+                      <input type="number" class="d-block default-font text-dark pl-2 pr-2 w-100" name="productId" id="productId" style="font-size: .9rem;">
+                    </div>
+                  </div>
+                -->
+                <div class="form-group">
+                  <label for="productId" class="default-font" style="font-size: .9rem;">
+                    PRICE
+                  </label>
+                  <input type="number" class="d-block default-font text-dark pl-2 pr-2 w-100" name="productId" id="productId" style="font-size: .9rem;">
+                </div>
                   <div class="form-group">
-                    <label for="productId"
-                      class="default-font">
-                      Product Id
+                    <label for="productId" class="default-font" style="font-size: .9rem;">
+                      PRICE
                     </label>
-                    <input type="text" class="form-control default-font" name="productId" id="productId">
+                    <input type="number" class="d-block default-font text-dark pl-2 pr-2 w-100" name="productId" id="productId" style="font-size: .9rem;">
                   </div>
                   <div class="form-group">
-                    <label for="title" class="default-font">Title</label>
-                    <input type="text" class="form-control default-font" name="title" id="title">
+                    <label for="productId" class="default-font" style="font-size: .9rem;">
+                      DESCRIPTION
+                    </label>
+                    <input type="number" class="d-block default-font text-dark pl-2 pr-2 w-100" name="description" id="description" style="font-size: .9rem;">
                   </div>
                   <div class="form-group">
-                    <label for="price" class="default-font">Price</label>
-                    <input type="number" class="form-control default-font" name="price" id="price">
-                  </div>
-                  <div class="form-group">
-                    <label for="description" class="default-font">Description</label>
-                    <input type="text" class="form-control default-font" name="description" id="description">
-                  </div>
-                  <div class="form-group">
-                    <label for="image" class="default-font">Image</label>
-                    <input type="file" class="default-font" name="image" id="image">
-                  </div>
-                  <div class="form-group">
-                    <label for="category" class="default-font">Category</label>
-                    <!--
-                    <select id="category" name="category" class="form-control">
+                    <label for="category" class="default-font" style="font-size: .9rem;">
+                      CATEGORY
+                    </label>
+                    <select id="category" name="category" class="default-font pl-2 d-block w-100">
+                      {% for category in categories %}
+                        <option value="{{ category.categoryId }}">
+                          {{ category.title }}
+                        </option>
+                      {% endfor %}
                     </select>
-                    -->
-                    {{ categories }}
-                    {{ bands }}
-                    
+                  </div>
+                  <div class="form-group">
+                    <label for="category" class="default-font" style="font-size: .9rem;">
+                      CATEGORY
+                    </label>
+                    <select id="category" name="category" class="default-font pl-2 d-block w-100">
+                      {% for band in bands %}
+                        <option value="{{ category.bandId }}">
+                          {{ band.title }}
+                        </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="productId" class="default-font" style="font-size: .9rem;">
+                      IMAGE
+                    </label>
+                    <input type="file" class="d-block default-font text-dark w-100" name="description" id="description" style="font-size: .9rem;">
+                  </div>
+                  <div class="form-group mt-4">
+                    <a class="btn btn-outline-info default-font" href="#" style="font-size: .9rem;">SAVE</a>
                   </div>
                 </form>
               </div>
