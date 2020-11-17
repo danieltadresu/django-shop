@@ -44,6 +44,7 @@
     font-size: 2.5em;
     margin-right: 25%;
     margin-left: 10px;
+    color: white;
 }
 .text_subtitulo {
     margin-top: 10px;
@@ -51,6 +52,7 @@
     font-family: "Times New Roman", Times, serif;
     font-size: 1em;
     margin-left: 10px;
+    color: white;
 }
 .boton-compra{
     margin-top: 10px;
