@@ -65,8 +65,35 @@ def getAdminProducts(request):
     }
     return render(request, 'products/admin-products.html', data)
 
-def getAddProduct(request):
-    return render(request, 'products/add-product.html')
+def postAddProduct(request):
+    try:
+        title = request.POST['title']
+        price = request.POST['price']
+        description = request.POST['description']
+        category = request.POST['category']
+        band = request.POST['band']
+        image = request.POST['image']
+        countAllProducts = Product.objects.all().count()
+        product = Product.objects.create(
+            productId = countAllProducts + 1,
+            title = title,
+            price = price,
+            description = description,
+            image = image,
+            category = Category.objects.get(pk=category),
+            band = Band.objects.get(pk=band)
+        )
+        product.save()
+    except Exception:
+        fetchAllCategories = Category.objects.all()
+        fetchAllBands = Band.objects.all()
+        data = {
+            'handleError': True,
+            'categories': fetchAllCategories,
+            'bands': fetchAllBands
+        }
+        return render(request, 'products/admin-products.html', data)
+    return HttpResponseRedirect('/')
 
 def getCart(request):
     if not request.user.is_authenticated:
