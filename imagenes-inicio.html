@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <style>
+    .container {
+      position: relative;
+      text-align: center;
+      color: white;
+    }
+    
+    .top-left {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      text-align: left;
+      margin-left: 50px;
+      margin-top: 10px;
+    }
+
+    .text_titulo {
+        font-family: "Times New Roman", Times, serif;
+        font-weight: bold;
+        font-size: 2.5em;
+        margin-right: 25%;
+        margin-left: 10px;
+    }
+    .text_subtitulo {
+        margin-top: 10px;
+        margin-right: 25%;
+        font-family: "Times New Roman", Times, serif;
+        font-size: 1em;
+        margin-left: 10px;
+    }
+    .boton-compra{
+        margin-top: 10px;
+        background-color:transparent;
+        color: white;
+        border: 2px solid white;
+        padding: 7px 40px;
+        margin-left: 10px;
+    }
+    .card1{
+        background-image: linear-gradient(to left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%), url('https://cdn.shopify.com/s/files/1/0287/4323/7725/files/headphones-2588235_1920_1350x897.jpg?v=1594960019');
+        height: 350px;
+        background-size: cover;
+        
+    }
+    .card2{
+        background-image: linear-gradient(to left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%), url('https://cdn.shopify.com/s/files/1/0287/4323/7725/files/photo-1542395118-9d95347995bc_898x674.jpg?v=1604682051');
+        height: 350px;
+        background-size:cover
+    }
+
+    </style>
+</head>
+<body>
+
+    <section id="main" class="main">
+        <div class="container">
+          <div class="row mt-5">
+            <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12 col-12 mt-2 mb-2">
+              <div class="card1">
+                   <div class="top-left">
+                       <div class="text_titulo">Rolling Stone's Greatest Records</div>
+                       <div class="text_subtitulo">Shop Rolling Stone's Best Albums Ever Collection</div>
+                       <div><button class="boton-compra">Shop</button></div>
+                    </div>
+                <div class="container-fluid">
+
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12 mt-2 mb-2">
+              <div class="card2">
+                  <div class="top-left">
+                    <div class="text_titulo">Box Sets & Limited Edition Vinyl</div>
+                    <div class="text_subtitulo">Now is the very best time to save on our most collectable records</div>
+                    <div><button class="boton-compra">Shop</button></div>
+                 </div>
+                <div class="container-fluid">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+
+
+</body>
+</html>
