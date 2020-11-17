@@ -57,6 +57,13 @@ def getProducts(request):
     }
     return render(request, 'shop/product-list.html', data)
 
+def getProductsFiltered(request, id):
+    filteredProducts = Product.objects.all().filter(category=id)
+    data = {
+        'filteredProducts': filteredProducts
+    }
+    return render(request, 'shop/filtered-products.html', data)
+
 def getAdminProducts(request):
     fetchAllCategories = Category.objects.all()
     fetchAllBands = Band.objects.all()
@@ -64,9 +71,6 @@ def getAdminProducts(request):
         'categories': fetchAllCategories,
         'bands': fetchAllBands
     }
-    #data = {
-    #    'form': ProductForm()
-    #}
     return render(request, 'products/admin-products.html', data)
 
 def postAddProduct(request):
@@ -98,6 +102,12 @@ def postAddProduct(request):
         }
         return render(request, 'products/admin-products.html', data)
     return HttpResponseRedirect('/')
+
+def postDeleteProduct(request, id):
+    print(id)
+    product = Product.objects.get(productId=id)
+    product.delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def getCart(request):
     if not request.user.is_authenticated:

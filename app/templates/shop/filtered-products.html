@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block content %}
+    <div class="">
+      <section>
+        <div class="container mt- mx-auto" style="max-width: 600px;">
+            {% if filteredProducts|length > 0 %}
+            <div class="">
+              <ul class="list-group">
+                {% for product in filteredProducts %}
+                  <li class="list-group-item">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div class="">
+                        <h5 class="text-dark default-font mt-1 mb-1">{{ product.title }}</h5>
+                        <p class="text-dark default-font mt-1 mb-1" style="font-size: .9rem;">${{ product.price|intcomma }}</p>
+                      </div>
+                    </div>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+            {% else %}
+              <h1 class="default-font text-center"> There aren't products </h1>
+            {% endif %}
+        </div>
+      </section>
+    </div>
+{% endblock %}
