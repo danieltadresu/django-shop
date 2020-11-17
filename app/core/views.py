@@ -2,14 +2,6 @@ from django.shortcuts import render
 
 from django.http import HttpResponseRedirect
 
-from core.models import (
-    Product,
-    Order,
-    OrderItem,
-    Category,
-    Band
-)
-
 from django.contrib.auth import (
     authenticate,
     login,
@@ -20,6 +12,15 @@ from django.contrib.auth.models import (
     User,
     Group
 )
+
+from core.models import (
+    Product,
+    Order,
+    OrderItem,
+    Category,
+    Band
+)
+
 
 import stripe
 stripe.api_key = (
@@ -63,6 +64,9 @@ def getAdminProducts(request):
         'categories': fetchAllCategories,
         'bands': fetchAllBands
     }
+    #data = {
+    #    'form': ProductForm()
+    #}
     return render(request, 'products/admin-products.html', data)
 
 def postAddProduct(request):
@@ -72,7 +76,7 @@ def postAddProduct(request):
         description = request.POST['description']
         category = request.POST['category']
         band = request.POST['band']
-        image = request.POST['image']
+        image = request.FILES['file']
         countAllProducts = Product.objects.all().count()
         product = Product.objects.create(
             productId = countAllProducts + 1,

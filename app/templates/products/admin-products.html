@@ -18,7 +18,7 @@
           <section>
             <div class="container">
               <div class="col-lg-4 col-md-6 col-sm-8 col-12 mx-auto">
-                <form action="/create-product/" method="POST">{% csrf_token %}
+                <form action="/create-product/" method="POST" enctype="multipart/form-data">{% csrf_token %}
                   <div class="form-group">
                     <label for="title" class="default-font" style="font-size: .9rem;">
                       TITLE
@@ -65,11 +65,7 @@
                       <label for="image" class="default-font" style="font-size: .9rem;">
                         IMAGE
                       </label>
-                      <!--
-                      <input type="text" class="d-block default-font text-dark pl-2 pr-2 w-100" name="image" id="image" style="font-size: .9rem;">
-                      -->
-                      <input type="file" class="d-block default-font text-dark w-100" name="image" id="image" style="font-size: .9rem;">
-
+                      <input type="file" class="d-block default-font text-dark w-100" name="file" id="file" style="font-size: .9rem;">
                     </div>
                   <div class="form-group mt-4">
                     <button class="btn btn-dark btn-block default-font" type="submit" style="font-size: .9rem;">SAVE PRODUCT</button>
@@ -85,8 +81,6 @@
               </div>
             </div>
           </section>
-
-
       </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
