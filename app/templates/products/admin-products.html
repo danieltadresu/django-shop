@@ -44,12 +44,13 @@
                   </div>
                   <div class="form-group">
                     <label for="category" class="default-font">Category</label>
+                    <!--
                     <select id="category" name="category" class="form-control">
-                        {% for cat in categorias%}
-                        <option value="{{cat.idCategoria}}">{{cat.nombreCategoria}}</option>
-
-                        {% endfor %}
                     </select>
+                    -->
+                    {{ categories }}
+                    {{ bands }}
+                    
                   </div>
                 </form>
               </div>

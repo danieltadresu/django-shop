@@ -5,7 +5,9 @@ from django.http import HttpResponseRedirect
 from core.models import (
     Product,
     Order,
-    OrderItem
+    OrderItem,
+    Category,
+    Band
 )
 
 from django.contrib.auth import (
@@ -55,7 +57,13 @@ def getProducts(request):
     return render(request, 'shop/product-list.html', data)
 
 def getAdminProducts(request):
-    return render(request, 'products/admin-products.html')
+    fetchAllCategories = Category.objects.all()
+    fetchAllBands = Band.objects.all()
+    data = {
+        'categories': fetchAllCategories,
+        'bands': fetchAllBands
+    }
+    return render(request, 'products/admin-products.html', data)
 
 def getAddProduct(request):
     return render(request, 'products/add-product.html')
