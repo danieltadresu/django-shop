@@ -20,3 +20,54 @@
 .small-font {
   font-size: .8rem;
 }
+
+<!-- index.css-->
+
+.container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.top-left {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  text-align: left;
+  margin-left: 50px;
+  margin-top: 10px;
+}
+
+.text_titulo {
+    font-family: "Times New Roman", Times, serif;
+    font-weight: bold;
+    font-size: 2.5em;
+    margin-right: 25%;
+    margin-left: 10px;
+}
+.text_subtitulo {
+    margin-top: 10px;
+    margin-right: 25%;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 1em;
+    margin-left: 10px;
+}
+.boton-compra{
+    margin-top: 10px;
+    background-color:transparent;
+    color: white;
+    border: 2px solid white;
+    padding: 7px 40px;
+    margin-left: 10px;
+}
+.card1{
+    background-image: linear-gradient(to left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%), url('https://cdn.shopify.com/s/files/1/0287/4323/7725/files/headphones-2588235_1920_1350x897.jpg?v=1594960019');
+    height: 350px;
+    background-size: cover;
+    
+}
+.card2{
+    background-image: linear-gradient(to left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%), url('https://cdn.shopify.com/s/files/1/0287/4323/7725/files/photo-1542395118-9d95347995bc_898x674.jpg?v=1604682051');
+    height: 350px;
+    background-size:cover
+}
