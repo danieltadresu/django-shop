@@ -1,0 +1,52 @@
+<div class="container">
+  <a href="/" class="navbar-brand default-font">Vinylsmind</a>
+  <button class="navbar-toggler" data-toggle="collapse" data-target="#nav">
+    <span class="navbar-toggler-icon"> </span>
+  </button>
+  <div class="collapse navbar-collapse" id="nav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a href="/products" class="nav-link default-font">
+          Catalogo
+        </a>
+      </li>
+      {% if perms.core.add_product %}
+      <li class="nav-item">
+        <a href="/admin-products" class="nav-link default-font">
+          Admin Products
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a href="/cart" class="nav-link default-font">
+          {{ items }} items selected
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/" class="nav-link default-font">
+          {{ user.username }}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/logout" class="nav-link default-font">
+          Logout
+        </a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a href="/login" class="nav-link default-font">
+           Log In
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/signup" class="nav-link default-font">
+          Sign In
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</div>

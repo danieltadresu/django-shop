@@ -42,7 +42,9 @@
                 <div class="card-body">
                   <h5 class="card-title default-font">{{ prods.title }}</h5>
                   <p class="card-text default-font" style="font-size: .8rem;"> {{ prods.band}} </p>
-                  <a href="/checkout/product/{{prods.productId}}" class="btn btn-outline-dark default-font" style="font-size: .8rem;">PAY <i class="fas fa-shopping-cart"></i></a>
+                  <!--<a href="/checkout/product/{{prods.productId}}" class="btn btn-outline-dark default-font" style="font-size: .8rem;">PAY <i class="fas fa-shopping-cart"></i></a>-->
+                  <!--<a href="/checkout" class="btn btn-outline-dark default-font" style="font-size: .8rem;">ADD <i class="fas fa-shopping-bag"></i></a>-->
+                  <a id="add-to-bag" href="/add-to-bag/{{prods.productId}}" class="btn btn-outline-dark default-font" style="font-size: .8rem;">ADD <i class="fas fa-shopping-bag"></i></a>
                 </div>
               </div>
             </div>
@@ -92,7 +94,9 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
+
   $(document).ready(function(){
+
     setTimeout(() => {
       $("#main").fadeIn(3000);
     }, 300);
@@ -108,6 +112,13 @@
     setTimeout(() => {
       $("#shop-by-genre").fadeIn(3000);
     }, 1400);
+
+    $( "#add-to-bag" ).click((event) => {
+      //bag = bag + 1;
+      //console.log(bag)
+      //event.preventDefault()
+    });
+
   });
   </script>
 {% endblock %}
