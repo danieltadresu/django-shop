@@ -1,2 +1,2 @@
 # Vinylsmind
-## e-commerce shop built with Django + SQLite + Stripe payments
+### E-commerce Project built with Django, SQLite and Stripe payments
